@@ -1,15 +1,56 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius = canvas.height / 2;
-ctx.translate(radius, radius);
-radius = radius * 0.90
-drawClock();
+var hour = 4;
+var minute = 37;
+$("#start_btn").on("click", showSomeTime);
+$("#submit_btn").on("click", checkAnswer);
+var answer_display_dom = $("#answer");
+var show_result_dom = $("#show_result");
+var show_result_text_dom = $("#show_result_text");
+var hr_ans_dom = $("#hour_ans");
+var min_ans_dom = $("#min_ans");
+
+init();
+
+function showSomeTime() {
+    hour = Math.floor(Math.random() * 12) + 1;
+    minute = Math.floor(Math.random() * 60);
+    drawClock();
+    answer_display_dom.show();
+    show_result_dom.hide();
+    hr_ans_dom.val("");
+    min_ans_dom.val("");
+    hr_ans_dom.focus();
+}
+
+function checkAnswer() {
+    show_result_dom.removeClass("panel-success");
+    show_result_dom.removeClass("panel-danger");
+    if (hr_ans_dom.val() == hour && min_ans_dom.val() == minute) {
+        show_result_text_dom.text("You got it right. Click Start to ask a new time!");
+        $("#start_btn").focus();
+        show_result_dom.addClass("panel-success");
+    } else {
+        show_result_text_dom.text("Check your answer again!");
+        show_result_dom.addClass("panel-danger");
+        hr_ans_dom.focus();
+    }
+    show_result_dom.show();
+}
+
+function init() {
+    ctx.translate(radius, radius);
+    radius = radius * 0.90
+    drawClock();
+    answer_display_dom.hide();
+}
 
 function drawClock() {
     drawBorders();
     drawFace(ctx, radius);
     drawNumbers(ctx,radius);
-    drawTime(ctx,radius);
+    drawTime(ctx,radius, hour, minute, 0);
 }
 
 function drawFace(ctx, radius) {
@@ -58,11 +99,7 @@ function drawNumbers(ctx, radius) {
     }
 }
 
-function drawTime(ctx, radius){
-    var now = new Date();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
+function drawTime(ctx, radius, hour, minute, second){
     //hour
     hour=hour%12;
     hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))+(second*Math.PI/(360*60));

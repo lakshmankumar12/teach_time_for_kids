@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
-<body>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
 
-<canvas id="canvas" width="400" height="400" style="background-color:#333"></canvas>
+        <div class="container">
+            <div class="row">
+                <button class="btn btn-success" id="start_btn">Start</btn>
+            </div>
+            <div class="row" id="answer">
+                The time is <input type="number" min=1 max=12 id="hour_ans"></input> : <input type="number" min=0 max=59 id="min_ans"></input>
+                <button class="btn btn-default" id="submit_btn">Submit</btn>
+            </div>
+            <div class="panel" id="show_result">
+                <div class="panel-heading" id="show_result_text">
+                </div>
+            </div>
 
-<script type="text/javascript" src="app.js"></script>>
-</script>
+        </div>
 
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+
+    </body>
 </html>
